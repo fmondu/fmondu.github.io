@@ -63,7 +63,7 @@ const App: FC = () => {
         </main>
 
         <footer className="text-center mt-16 text-gray-500">
-          <p>&copy; 2025 Your Name. Built with React, TypeScript, Vite and Tailwind CSS.</p>
+          <p>&copy; 2025 Fabio Monsalve. Built with React, TypeScript, Vite and Tailwind CSS.</p>
         </footer>
       </div>
     </div>
