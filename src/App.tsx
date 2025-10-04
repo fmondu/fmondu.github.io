@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { FC } from 'react';
+import { Tooltip } from 'react-tooltip';
 
 import { projects, skillTags } from './data/projects';
 
@@ -33,48 +34,62 @@ const App: FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
-            <div className="container mx-auto px-4 py-16 max-w-6xl">
+            <div className="flex flex-col gap-12 container mx-auto px-4 py-8 md:py-16 max-w-6xl">
                 {/* Header */}
-                <header className="flex flex-col gap-6 text-center mb-16">
-                    <h1 className="text-5xl font-bold tracking-tight text-slate-800 dark:text-slate-200 font-title">
-                        Fabio Monsalve
-                    </h1>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
-                        Developer and designer with 8 years experience creating web applications and
-                        digital experiences. Also dabbles in{' '}
-                        <a
-                            className="text-blue-600 hover:underline"
-                            href="https://soundcloud.com/balacera"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            music
-                        </a>{' '}
-                        production and sound design.
-                    </p>
-                    <div className="flex flex-row gap-4 justify-center">
-                        <a
-                            className="text-blue-600 hover:underline"
-                            href="mailto:fmondu@protonmail.com"
-                        >
-                            Email me
-                        </a>
-                        <a
-                            className="text-blue-600 hover:underline"
-                            href="/Fabio Monsalve - Resume.pdf"
-                            download="Fabio Monsalve - Resume.pdf"
-                        >
-                            Download my resumé
-                        </a>
+                <header className="flex flex-col gap-6 text-left md:text-center items-start md:items-center">
+                    <div className="flex flex-row gap-2 md:gap-4 text-left md:text-center w-max items-center">
+                        <img
+                            src="/me.jpg"
+                            alt="Wedding day with my mother"
+                            data-tooltip-id="profile-photo-tooltip"
+                            data-tooltip-content="Wedding day with my mother"
+                            data-tooltip-place="left"
+                            className="mx-auto w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 md:border-4 border-slate-200 dark:border-slate-700 shadow hover:scale-[2] transition-transform"
+                            style={{ aspectRatio: 1 }}
+                        />
+                        <Tooltip id="profile-photo-tooltip" />
+                        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-800 dark:text-slate-200 font-title">
+                            Fabio Monsalve
+                        </h1>
+                    </div>
+                    <div className="flex flex-col gap-3 text-left md:text-center">
+                        <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
+                            Developer and designer with 7 years experience creating web applications
+                            and digital experiences. Also dabbles in{' '}
+                            <a
+                                className="text-blue-600 hover:underline"
+                                href="https://soundcloud.com/balacera"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                music
+                            </a>{' '}
+                            production and sound design.
+                        </p>
+                        <div className="flex flex-row gap-4 items-start md:justify-center">
+                            <a
+                                className="text-blue-600 hover:underline"
+                                href="mailto:fmondu@protonmail.com"
+                            >
+                                Email me
+                            </a>
+                            <a
+                                className="text-blue-600 hover:underline"
+                                href="/Fabio Monsalve - Resume.pdf"
+                                download="Fabio Monsalve - Resume.pdf"
+                            >
+                                Download my resumé
+                            </a>
+                        </div>
                     </div>
                 </header>
 
                 {/* Skills/Filter Tags */}
-                <section className="mb-12">
-                    <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-6 text-center">
+                <section className="flex flex-col gap-6">
+                    <h2 className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 text-left md:text-center">
                         Skills & Technologies
                     </h2>
-                    <div className="flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
+                    <div className="flex flex-wrap gap-3 items-start md:justify-center max-w-4xl mx-auto">
                         {skillTags.map((tag) => (
                             <Tag
                                 key={tag}
@@ -85,7 +100,7 @@ const App: FC = () => {
                         ))}
                     </div>
                     {selectedTags.length > 0 && (
-                        <div className="flex justify-center mt-4">
+                        <div className="flex items-start md:justify-center">
                             <button
                                 onClick={clearFilters}
                                 className="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors"
@@ -98,17 +113,21 @@ const App: FC = () => {
 
                 {/* Projects */}
                 {showProjects && (
-                    <section className="mb-16">
-                        <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-6 text-center">
+                    <section className="flex flex-col gap-6">
+                        <h2 className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 text-left md:text-center">
                             Projects {selectedTags.length > 0 && `(${filteredProjects.length})`}
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                             {filteredProjects.map((project) => (
-                                <ProjectCard key={project.id} project={project} />
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    selectedTags={selectedTags}
+                                />
                             ))}
                         </div>
                         {filteredProjects.length === 0 && selectedTags.length > 0 && (
-                            <div className="text-center py-12">
+                            <div className="text-left md:text-center py-12">
                                 <p className="text-slate-500 dark:text-slate-400">
                                     No projects found with the selected tags.
                                 </p>
@@ -124,7 +143,7 @@ const App: FC = () => {
                 )}
 
                 {/* Footer */}
-                <footer className="flex flex-col gap-2 justify-center max-w-2xl mx-auto text-center text-slate-500 text-sm">
+                <footer className="flex flex-col gap-2 justify-center max-w-2xl mx-auto text-left md:text-center text-slate-500 text-sm">
                     <p>
                         © 2025 Fabio Monsalve. This project is free software: you can redistribute
                         it and/or modify it under the terms of the{' '}

@@ -5,7 +5,7 @@ export const projects: Project[] = [
         id: '1',
         title: 'SSQ Platform',
         description:
-            "Designed from paper and pencil product and developed a workforce questionnaire and role mapping web app tool with interactive data map. Worked closely with our client to digitise his life's work",
+            "Designed from paper and pencil product and developed a workforce questionnaire and role mapping web app tool with interactive data map. Worked closely with our client to digitise his life's work. With this in mind a certain degree of care was required both in execution and stakeholder meetings and interaction. For this codebase we decided to go with an opinionated data-fetching/api management tool (TanStack Query) after finding ourselves missing a few important features and also not wanting to re-invent the wheel in terms of caching, refetch, background updates and mutation tracking. We also chose to go with Vite over CRA mostly for performance and bundling advantages. I got the most satisfaction from working on the create role page which utilised some of those great features from TanStack Query, it made sequential and conditional endpoint usage (create location, create department, different endpoints for different answer types etc all dependent on each other). Error handling was also very important as there were so many different kinds of errors that could go wrong depending on where the process had gone wrong, lots of care and thought went into writing good and clear error messages.",
         tags: [
             'React.js',
             'JavaScript',
@@ -19,9 +19,7 @@ export const projects: Project[] = [
         ],
         image: '/ssq-platform.png',
         figmaUrl:
-            'https://www.figma.com/proto/6UIEDn6O43cpYVzlA20RBh/SSQ---Role-Questionnaire?page-id=0%3A1&node-id=33-227&p=f&viewport=38%2C296%2C0.16&t=W9lK36SvlbdaYGW3-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=10%3A588',
-        // demoUrl: 'https://example.com/demo1',
-        // githubUrl: 'https://github.com/example/project1',
+            'https://www.figma.com/design/6UIEDn6O43cpYVzlA20RBh/SSQ---Role-Questionnaire?node-id=0-1',
     },
     {
         id: '2',
@@ -42,23 +40,21 @@ export const projects: Project[] = [
             'Prototyping',
             'Reporting',
         ],
-        figmaUrl: 'https://example.com/demo2',
-        githubUrl: 'https://github.com/example/project2',
+        image: '/coach-platform.png',
     },
     {
         id: '3',
         title: 'Private component library package',
         description:
-            'Built and deployed a TypeScript component library via Azure DevOps, using Storybook for interactive documentation. Streamlined UI consistency across apps through reusable, accessible, and securely hosted components',
+            'Built and deployed a TypeScript component library via Azure DevOps, using Storybook for interactive documentation. Streamlined UI consistency across apps through reusable, accessible, and securely hosted components. Having multiple applications that needed the same look feel we needed a way to share components and branding, having a single source of truth not only helps with maintenance and updates but also enables version control, dependency management, and continuous integration for UI components, ensuring updates can be rolled out safely and efficiently.',
         tags: ['React.js', 'TypeScript', 'Vite', 'Storybook', 'npm', 'Azure DevOps'],
-        demoUrl: 'https://example.com/demo3',
-        githubUrl: 'https://github.com/example/project3',
+        image: '/storybook.png',
     },
     {
         id: '4',
         title: 'Menu Driven',
         description:
-            'Built and deployed a TypeScript component library via Azure DevOps, using Storybook for interactive documentation. Streamlined UI consistency across apps through reusable, accessible, and securely hosted components',
+            'As part of the first steps towards creating a new super admin portal the task was to build a multi-step workflow for creating and importing questions into our platform in a user-friendly and error-resistant way. It streamlines both manual question entry and bulk imports through a clear, guided process. The process includes five key stages: creating questions manually, uploading files, mapping data fields, reviewing imported items, and confirming a final summary before import.',
         tags: ['Figma'],
         image: '/import.png',
         figmaUrl:
