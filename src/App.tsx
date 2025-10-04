@@ -33,11 +33,11 @@ const App: FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <div className="min-h-screen">
             <div className="flex flex-col gap-12 container mx-auto px-4 py-8 md:py-16 max-w-6xl">
                 {/* Header */}
                 <header className="flex flex-col gap-6 text-left md:text-center items-start md:items-center">
-                    <div className="flex flex-row gap-2 md:gap-4 text-left md:text-center w-max items-center">
+                    <div className="flex flex-row gap-2.5 md:gap-4 text-left md:text-center w-max items-center">
                         <img
                             src="/me.jpg"
                             alt="Wedding day with my mother"
