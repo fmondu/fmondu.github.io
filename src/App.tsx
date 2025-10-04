@@ -1,73 +1,157 @@
-import type { FC } from 'react'
+import { useState, useMemo } from 'react';
+import type { FC } from 'react';
+
+import { projects, skillTags } from './data/projects';
+
+import Tag from './components/Tag';
+import ProjectCard from './components/ProjectCard';
 
 const App: FC = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
-        <header className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">
-            Fabio Monsalve
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            A modern React TypeScript application built with Vite and Tailwind CSS, deployed on GitHub Pages
-          </p>
-        </header>
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [showProjects, setShowProjects] = useState(true);
+    const [tagsInteracted, setTagsInteracted] = useState(false);
 
-        <main className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Fast Performance</h3>
-              <p className="text-gray-600">Built with modern React and optimized for speed and performance.</p>
+    const filteredProjects = useMemo(() => {
+        if (selectedTags.length === 0) {
+            return projects;
+        }
+
+        return projects.filter((project) => selectedTags.some((tag) => project.tags.includes(tag)));
+    }, [selectedTags, tagsInteracted]);
+
+    const toggleTag = (tag: string) => {
+        setTagsInteracted(true);
+        setSelectedTags((prev) =>
+            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+        );
+        if (!showProjects) setShowProjects(true);
+    };
+
+    const clearFilters = () => {
+        setSelectedTags([]);
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+            <div className="container mx-auto px-4 py-16 max-w-6xl">
+                {/* Header */}
+                <header className="flex flex-col gap-6 text-center mb-16">
+                    <h1 className="text-5xl font-bold tracking-tight text-slate-800 dark:text-slate-200 font-title">
+                        Fabio Monsalve
+                    </h1>
+                    <p className="text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
+                        Developer and designer with 8 years experience creating web applications and
+                        digital experiences. Also dabbles in{' '}
+                        <a
+                            className="text-blue-600 hover:underline"
+                            href="https://soundcloud.com/balacera"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            music
+                        </a>{' '}
+                        production and sound design.
+                    </p>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <a
+                            className="text-blue-600 hover:underline"
+                            href="mailto:fmondu@protonmail.com"
+                        >
+                            Email me
+                        </a>
+                        <a
+                            className="text-blue-600 hover:underline"
+                            href="/Fabio Monsalve - Resume.pdf"
+                            download="Fabio Monsalve - Resume.pdf"
+                        >
+                            Download my resumé
+                        </a>
+                    </div>
+                </header>
+
+                {/* Skills/Filter Tags */}
+                <section className="mb-12">
+                    <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-6 text-center">
+                        Skills & Technologies
+                    </h2>
+                    <div className="flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
+                        {skillTags.map((tag) => (
+                            <Tag
+                                key={tag}
+                                label={tag}
+                                isActive={selectedTags.includes(tag)}
+                                onClick={() => toggleTag(tag)}
+                            />
+                        ))}
+                    </div>
+                    {selectedTags.length > 0 && (
+                        <div className="flex justify-center mt-4">
+                            <button
+                                onClick={clearFilters}
+                                className="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors"
+                            >
+                                Clear filters ({selectedTags.length})
+                            </button>
+                        </div>
+                    )}
+                </section>
+
+                {/* Projects */}
+                {showProjects && (
+                    <section className="mb-16">
+                        <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-6 text-center">
+                            Projects {selectedTags.length > 0 && `(${filteredProjects.length})`}
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredProjects.map((project) => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </div>
+                        {filteredProjects.length === 0 && selectedTags.length > 0 && (
+                            <div className="text-center py-12">
+                                <p className="text-slate-500 dark:text-slate-400">
+                                    No projects found with the selected tags.
+                                </p>
+                                <button
+                                    onClick={clearFilters}
+                                    className="mt-2 text-teal-600 hover:text-teal-700 transition-colors"
+                                >
+                                    Clear filters
+                                </button>
+                            </div>
+                        )}
+                    </section>
+                )}
+
+                {/* Footer */}
+                <footer className="flex flex-col gap-2 justify-center max-w-2xl mx-auto text-center text-slate-500 text-sm">
+                    <p>
+                        © 2025 Fabio Monsalve. This project is free software: you can redistribute
+                        it and/or modify it under the terms of the{' '}
+                        <a
+                            className="text-blue-600 hover:underline"
+                            href="https://www.gnu.org/licenses/gpl-3.0.html"
+                        >
+                            GNU General Public License
+                        </a>{' '}
+                        as published by the Free Software Foundation, either version 3 of the
+                        License, or (at your option) any later version.
+                    </p>
+                    <p>This website was built with React, TypeScript, Vite and Tailwind CSS.</p>
+                    <p>
+                        The source code is available on{' '}
+                        <a
+                            className="text-blue-600 hover:underline"
+                            href="https://github.com/fmondu/fmondu.github.io"
+                        >
+                            GitHub
+                        </a>
+                        .
+                    </p>
+                </footer>
             </div>
+        </div>
+    );
+};
 
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Beautiful Design</h3>
-              <p className="text-gray-600">Crafted with Tailwind CSS for a modern and responsive design.</p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-1">
-              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Easy Deployment</h3>
-              <p className="text-gray-600">Automatically deployed to GitHub Pages with every push to main.</p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-xl p-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Ready to Get Started?</h2>
-            <p className="text-gray-600 mb-6">
-              This is your starting point. Customize this page to showcase your projects and skills.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                View Projects
-              </button>
-              <button className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors">
-                Contact Me
-              </button>
-            </div>
-          </div>
-        </main>
-
-        <footer className="text-center mt-16 text-gray-500">
-          <p>&copy; 2025 Fabio Monsalve. Built with React, TypeScript, Vite and Tailwind CSS.</p>
-        </footer>
-      </div>
-    </div>
-  );
-}
-
-export default App
+export default App;
