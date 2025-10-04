@@ -42,7 +42,7 @@ const App: FC = () => {
                             src="/me.jpg"
                             alt="Wedding day with my mother"
                             data-tooltip-id="profile-photo-tooltip"
-                            data-tooltip-content="Wedding day with my mother"
+                            data-tooltip-content="Me and my mother on my wedding day 2023"
                             data-tooltip-place="left"
                             className="mx-auto w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 md:border-4 border-slate-200 dark:border-slate-700 shadow hover:scale-[2] transition-transform"
                             style={{ aspectRatio: 1 }}
