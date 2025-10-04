@@ -26,7 +26,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, selectedTags }) => {
     const hasMore = words.length > MAX_WORDS;
 
     return (
-        <div className="flex flex-col gap-4 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-4 hover:shadow-md transition-shadow duration-200 h-full">
+        <div className="flex flex-col gap-4 bg-white dark:bg-slate-800 rounded-md shadow-sm border border-slate-200 dark:border-slate-700 p-4 hover:shadow-md transition-shadow duration-200 h-full">
             {project.image && (
                 <div className="w-full h-48 bg-slate-100 dark:bg-slate-700 rounded-md overflow-hidden">
                     <img
