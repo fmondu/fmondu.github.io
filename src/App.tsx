@@ -34,7 +34,7 @@ const App: FC = () => {
 
     return (
         <div className="min-h-screen">
-            <div className="flex flex-col gap-12 container mx-auto px-4 py-8 md:py-16 max-w-6xl">
+            <div className="flex flex-col gap-6 md:gap-12 container mx-auto px-4 py-8 md:py-16 max-w-6xl">
                 {/* Header */}
                 <header className="flex flex-col gap-6 text-left md:text-center items-start md:items-center">
                     <div className="flex flex-row gap-2.5 md:gap-4 text-left md:text-center w-max items-center">
@@ -44,11 +44,11 @@ const App: FC = () => {
                             data-tooltip-id="profile-photo-tooltip"
                             data-tooltip-content="Me and my mother on my wedding day 2023"
                             data-tooltip-place="left"
-                            className="mx-auto w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 md:border-4 border-slate-200 dark:border-slate-700 shadow hover:scale-[2] transition-transform"
+                            className="mx-auto w-10 h-10 md:w-14 md:h-14 rounded-full object-cover border-2 md:border-4 border-slate-200 dark:border-slate-700 shadow hover:scale-[2] transition-transform"
                             style={{ aspectRatio: 1 }}
                         />
                         <Tooltip id="profile-photo-tooltip" />
-                        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-800 dark:text-slate-200 font-title">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-800 dark:text-slate-200 font-title">
                             Fabio Monsalve
                         </h1>
                     </div>
@@ -85,11 +85,11 @@ const App: FC = () => {
                 </header>
 
                 {/* Skills/Filter Tags */}
-                <section className="flex flex-col gap-6">
+                <section className="flex flex-col gap-4 md:gap-6">
                     <h2 className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 text-left md:text-center">
                         Skills & Technologies
                     </h2>
-                    <div className="flex flex-wrap gap-3 items-start md:justify-center max-w-4xl mx-auto">
+                    <div className="flex flex-wrap gap-2 md:gap-3 items-start md:justify-center max-w-4xl mx-auto">
                         {skillTags.map((tag) => (
                             <Tag
                                 key={tag}
@@ -113,7 +113,7 @@ const App: FC = () => {
 
                 {/* Projects */}
                 {showProjects && (
-                    <section className="flex flex-col gap-6">
+                    <section className="flex flex-col gap-4 md:gap-6">
                         <h2 className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 text-left md:text-center">
                             Projects {selectedTags.length > 0 && `(${filteredProjects.length})`}
                         </h2>

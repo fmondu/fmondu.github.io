@@ -16,7 +16,7 @@ const Tag: FC<TagProps> = ({ label, isActive, onClick }) => {
                 ? 'bg-teal-600 text-white border-teal-600 shadow-lg'
                 : 'bg-white/90 text-slate-700 border-slate-300/60 hover:border-teal-600 hover:text-teal-600 hover:bg-white/100 dark:bg-slate-800/90 dark:text-slate-300 dark:border-slate-600/60 dark:hover:border-teal-600 dark:hover:bg-slate-800/100'
         }
-        text-xs px-2 py-1
+        text-xs px-1.5 py-0.5
         md:text-sm md:px-3 md:py-1.5
     `}
         >
